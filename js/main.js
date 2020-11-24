@@ -1,420 +1,592 @@
-
-
-$(document).ready(function(){
-    
-    $('.header__switcher_circle').on("click", function(){
-        if ($('body').hasClass('dark-theme')) {
-            $('.dark-mode').text("Dark mode");
-        }else {
-            $('.dark-mode').text("Light mode");
-        }
-        $("body").toggleClass("dark-theme");
-    });
-    
-});
-var delay_popup = 1000;
-setTimeout("document.getElementById('overlay').style.display='block'", delay_popup);
-
-// COUNTER
-
-// var addPl = new Vue ({
-//     el: '.all',
-//     data: {
-//         taskIsAdded: false,
-//         isPageLoaded: true,
-//         status: "",
-//         user: "",
-//         date: "",
-//         desci: "",
-//         dateHours: "",
-//         dateMinutes: "",
-//         targ: '',
-//         dragid: '',
-//         dragstartdate: "",
-//         dragdesc: "",
-//         dateSeconds: "",
-//         finalDate: "",
-//         finalDateHours: "",
-//         finalDateMinutes: "",
-//         finalDateSeconds: "",
-//         dateDiff: '',
-//         new_task: [
-//             {
-//                 id: '',
-//                 desc: '',
-//                 status: '',
-//             }
-//         ],
-//         process: [
-//             {
-//                 id: '',
-//                 desc: '',
-//                 status: '',
-//                 date: ''
-//             }
-//         ],
-//         done: [
-//             {
-//                 id: '',
-//                 desc: '',
-//                 status: '',
-//                 date: '',
-//                 finalDate: ''  
-//             }
-//         ],
-//         count: 1,
-//      },
-//      methods: {
-//         set_user() {
-//             var currentUser = $(event.target).closest('.popup').find(':input').val();
-//             var currUs = $('#userid').val();
-//             if(currUs == '') {
-//                 alert("Введите имя ответственного!");
-//             } else {
-//                 user: this.new_task.user;
-//                 this.isPageLoaded = false;
-//             }
-//         },
-//         add_task() {
-//                 if(this.desci == '' ) {
-//                     alert('Заполните поле!')
-//                 }
-//                 else {
-//                     this.new_task.push ({
-//                         id: this.count++,
-//                         desc: this.desci,
-//                         user: this.new_task.user
-//                     });
-//                 }
-//                 this.new_task.desc = '';
-//                 console.log(this.count);
-//             },
-//         close_task() {
-//             $('.popup-close').click(function() {
-//                 $(this).parents('.popup-fade').fadeOut();
-//                 return false;
-//             });
-//         },
-//         edit_desc: function(event) {
-//             targ = $(event.target);
-//             $('.popup-fade').fadeIn();
-//             // var whichbl = $('.proverka').attr('class');
-//             var whichbl = $(event.target).closest('.columns').find('proverka').attr('class');
-//             var currentPlan = $(event.target).closest('li').find('p');
-//             var nextBlock = $(event.target).closest('li');
-//             var currentDescription = $('#cng-desc').val();
-//             var date = new Date();
-//             if ($(event.target).closest('.proverka').attr('class') == 'columns__plan proverka') {
-//                 $('.popup__start-date').addClass('hide');
-//                 $('.popup__final-date').addClass('hide');
-//             } else if($(event.target).closest('.proverka').attr('class') == 'columns__process proverka') {
-//                 $('.popup__start-date').removeClass('hide');
-//             } else if ($(event.target).closest('.proverka').attr('class') == 'columns__done proverka') {
-//                 $('.popup__start-date').removeClass('hide');
-//                 $('.popup__final-date').removeClass('hide');
-
-//             }
-//             console.log(whichbl);
-//             if ($(event.target).closest('.proverka').attr('class') == 'columns__plan proverka') {
-//                 if (currentDescription == '') {
-//                     alert('Заполните поле!');
-//                 } else {
-//                     $('.submit_btn').click(function(ev) {
-//                         var currentDesc = $('#cng-desc').val();
-//                         var currentStatus = $('#status').val();
-//                         $(currentPlan).text(currentDesc);
-//                         // console.log(currentDesc);
-//                         // console.log(currentPlan);
-//                         if (currentStatus == 'plan') {
-//                             $(nextBlock).appendTo('.columns__plan');
-//                             $('.new-date-par').addClass('hide');
-//                             $('.date-par').addClass('hide');
-//                             $('.new-date-par').remove();
-//                             $('new-date-par').detach(':empty');
-//                             $('.date-par').remove();
-//                             $('.date-par').detach(':empty');
-//                             // this.process.pop({
-//                             //     id: ''
-//                             // });
-//                             // this.done.pop({
-//                             //     id: '',
-//                             // });
-//                         } else if(currentStatus == 'process') {
-//                             var statusStartDate = new Date();
-//                             this.date = statusStartDate;
-//                             var descStartTime = $('#cng-start-time');
-//                             $(descStartTime).val(this.date);
-//                             $('.date-par').removeClass('hide');
-//                             var currentProcessBlock = $('.date-par');
-//                             $(currentProcessBlock).addClass(' check-done');
-//                             var checkButton = $(event.target).closest('.columns__plan_icons').find('.fa-times-circle');
-//                             $(nextBlock).appendTo('.columns__process');
-//                             $('.new-date-par').addClass('hide');
-//                             $('.new-date-span').addClass('hide');
-//                             if ($(currentProcessBlock).attr('class') != 'date-par check-done') {
-//                                 $(currentPlan).after('<span class="date-par">Дата и время начала: <span class="date-span">' + this.date + '</span></span>');
-//                             }
-//                             $(checkButton).removeClass('fas fa-times-circle').addClass('far fa-check-circle');    
-//                             var date = new Date();
-//                             this.date = date;
-//                             this.dateHours = date.getHours();
-//                             this.dateMinutes = date.getMinutes();
-//                             this.dateSeconds = date.getSeconds();
-//                             // this.new_task.pop ({
-//                             //     id: ''
-//                             // });
-//                             $(nextBlock).appendTo('.columns__process');
-//                             // this.process.push({     
-//                             //     id: this.count++,
-//                             //     desc: this.new_task.desc,
-//                             //     user: this.new_task.user,
-//                             //     status: 'Process',
-//                             //     date: new Date()
-//                             // });
-//                         } else if (currentStatus == 'done') {
-//                             statusFinalDate = new Date();
-//                             this.finalDate = statusFinalDate;
-//                             var descFinalTime = $('#cng-final-time');
-//                             $(descFinalTime).val(this.finalDate);
-//                             var currentBlock = $(event.target).closest('.columns__plan_desc').find('span');
-//                             $(nextBlock).appendTo('.columns__done');
-//                             var checkButton = $(event.target).closest('.columns__plan_icons').find('.fa-check-circle');
-//                             var startDate = $(event.target).closest('li').find('.date-par');
-//                             var finalDate = new Date()
-//                             $('.new-date-par').text('');
-//                             this.finalDateHours = finalDate.getHours();
-//                             this.finalDateMinutes = finalDate.getMinutes();
-//                             this.finalDateSeconds = finalDate.getSeconds();
-//                             // console.log(whichbl);
-//                             $(nextBlock).appendTo('.columns__done');
-//                             if ($(currentBlock).attr('class') != 'new-date-par new-check-done') {
-//                                 $(event.target).closest('.columns__plan_block').find('.columns__plan_desc').after('<span class="new-date-par"> Дата и время окончания: <span class="new-date-span">' + this.finalDate + '</span></span>')
-//                                 $(event.target).closest('.columns__plan_block').find('.columns__plan_desc').after('<span class="new-date-par"> Затрачено времени: <span class="new-date-span">' + (this.finalDateHours - this.dateHours) + ':' + (this.finalDateMinutes - this.dateMinutes) + ':' +  (this.finalDateSeconds - this.dateSeconds) + '</span></span>')
-//                                 $(checkButton).removeClass('far fa-check-circle').addClass('fas fa-times-circle');
-//                             }
-//                             $(currentBlock).addClass(' new-check-done');
-//                             // $(event.target).closest('.columns__plan_block').css('display', 'none');
-//                             // var checkButton = $(event.target).closest('.columns__plan_icons').find('.fa-times-circle');
-//                             // var finalDate = new Date();
-//                             // this.finalDate = finalDate;
-//                             // this.finalDateHours = finalDate.getHours();
-//                             // this.finalDateMinutes = finalDate.getMinutes();
-//                             // this.finalDateSeconds = finalDate.getSeconds();
-//                             // this.process.pop ({
-//                             //     id: ''
-//                             // });
-//                             // this.done.push({
-//                             //     id: this.count++,
-//                             //     desc: this.new_task.desc,
-//                             //     user: this.new_task.user,
-//                             //     status: 'Process',
-//                             //     date: new Date(),
-//                             //     finalDate: new Date(),
-//                             //     dateDiff: (this.finalDateHours - this.dateHours) + ':' + (this.finalDateMinutes - this.dateMinutes) + ':' +  (this.finalDateSeconds - this.dateSeconds)
-//                             // });
-//                         }
-//                         $(this).parents('.popup-fade').fadeOut();
-//                         console.log(currentStatus);
-//                     });
-//                 }
-//             }
-            
-//         },
-//         edit_task: function(event) {
-            
-//         },
-//         // next_column: function(event) {
-//         //     var whichbl = $(event.target).closest('.proverka').attr('class')
-//         //     console.log(whichbl);
-//         //         var date = new Date();
-//         //         this.date = date;
-//         //         var descStartTime = $('#cng-start-time');
-//         //         $(descStartTime).val(this.date);
-//         //         this.dateHours = date.getHours();
-//         //         this.dateMinutes = date.getMinutes();
-//         //         this.dateSeconds = date.getSeconds();
-//         //         var nextBlock = $(event.target).closest('li');
-//         //         if (whichbl == 'columns__plan proverka') {
-//         //             $('.popup__final-date').addClass('hide');
-//         //             var descBlock = $(event.target).closest('.columns__plan_block').find('.columns__plan_desc');
-//         //             $(nextBlock).appendTo('.columns__process');
-//         //             $(descBlock).after('<span class="date-par">Дата и время начала: <span class="date-span">' + this.date + '</span></span>');
-//         //             console.log(descBlock);
-//         //             // $(event.target).closest('.columns__plan_edit').find('.fa-check-circle').removeClass('check').addClass('done')
-//         //         } else if(whichbl == 'columns__process proverka') {
-//         //                 $('.popup__final-date').removeClass('hide');
-                        
-//         //                 var checkButton = $(event.target).closest('.columns__plan_icons').find('.fa-check-circle');
-//         //                 var startDate = $(event.target).closest('li').find('.date-par');
-//         //                 var finalDate = new Date()
-//         //                 this.finalDate = finalDate;
-//         //                 var descFinalTime = $('#cng-final-time');
-//         //                 $(descFinalTime).val(this.finalDate);
-//         //                 this.finalDateHours = finalDate.getHours();
-//         //                 this.finalDateMinutes = finalDate.getMinutes();
-//         //                 this.finalDateSeconds = finalDate.getSeconds();
-//         //                 // console.log(whichbl);
-//         //                 $(nextBlock).appendTo('.columns__done');
-//         //                 $(event.target).closest('.columns__plan_block').find('.columns__plan_desc').after('<span class="new-date-par"> Дата и время окончания: <span class="new-date-span">' + this.finalDate + '</span></span>')
-//         //                 $(event.target).closest('.columns__plan_block').find('.columns__plan_desc').after('<span class="new-date-par"> Затрачено времени: <span class="new-date-span">' + (this.finalDateHours - this.dateHours) + ':' + (this.finalDateMinutes - this.dateMinutes) + ':' +  (this.finalDateSeconds - this.dateSeconds) + '</span></span>')
-//         //                 $(checkButton).removeClass('far fa-check-circle').addClass('fas fa-times-circle');
-//         //         } else if(whichbl == 'columns__done proverka') {
-//         //                 $(event.target).closest('.columns__plan_block').css('display', 'none');
-//         //         }
-//         //     },
-//             next_plan: function(event) {
-//                 var desc = $(event.target).closest('li').find('.columns__plan_desc').text()
-//                 var planId = $(event.target).closest('li').find('.indef').text();
+new Vue({
+    el: '.container',
+    data: {
+            inputvalue: '',
+            namevalue: '',
+            whois: '',
+            themedark: false,
+            Hour1: '',
+            Hour2: '',
+            Minutes1: '',
+            Minutes2: '',
+            Seconds1: '',
+            Seconds2:'',
+            secondid: '',
+            seconddesc: '',
+            seconddatestart: '',
+            h:'',
+            m:'',
+            s:'',
+            status:'',
+            plans: [
+                {
+                    id: '',
+                    description: '',
+                    status: '',
+                 
+                }],
+            inwork: [
+                {
+                    id: '',
+                    description: '',
+                    datestart: '',
+                    pesponsable: '',
+                    status: '',
+                   
+                }],
+            completed: [
+                {
+                    id: '',
+                    description: '',
+                    datestart: '',
+                    dateend: '',
+                    responsable: '',
+                    during: '',
+                    status: '',
+                }],
+            nextid: 1,
+            countplans: 1,
+            countwork: 1,
+            countstop: 1,
+    },
+    methods: {
+        avtor: function (param) {  
+            if ((this.namevalue == '')) {
+                alert('Введите имя!')
+                return
+            }else{
+                $('.avtor').css({
+                    'display': 'none'
+                })
+            }
+        },
+        theme: function(){
+            console.log('theme')
+            if(flag){
+             $('.plans').css({
+            'background-color': 'rgba(52, 152, 219, 0.2)'
+                })
+            }
+            console.log('проверка темы ')
+            $('.plans').css({
+                'background-color': 'rgba(52, 152, 219, 0.2)'
+                    })
+        },
+        add: function () {
+            if ((this.inputvalue == '')) {
+                alert('Заполните поле для добавления плана!')
+                return
+            }
+            this.plans.push({
+                id: this.nextid++,
+                description: this.inputvalue,
+            })
+            this.inputvalue = ''
+        },
+        startDrag: (evt, item) => {
+			evt.dataTransfer.dropEffect = 'move';
+            evt.dataTransfer.effectAllowed = 'move';
+            this.status = $(evt.target).closest('.check').attr('class');
+            this.secondid = item.id;
+            this.seconddatestart = item.datestart;
+            this.seconddesc = item.description;
+            if(evt.dataTransfer.getData('itemDATE') == ''){
+                evt.dataTransfer.setData('itemDATE', new Date());
+            }
+            console.log('seconddesc ' +this.seconddesc)
+            if(this.status == 'main__plans check'){
+                evt.dataTransfer.setData('itemID', item.id);
+                evt.dataTransfer.setData('itemDECS', item.description);
+                evt.dataTransfer.setData('itemDELETE', item.id);
+                evt.dataTransfer.setData('itemSTATUS', 'plans');
+                //this.plans.splice(this.plans.indexOf(item.id), 1);
                 
-//                 this.new_task.pop ({
-//                     id: planId
-//                 });
-//                 var date = new Date();
-//                 this.date = date;
-//                 this.dateHours = date.getHours();
-//                 this.dateMinutes = date.getMinutes();
-//                 this.dateSeconds = date.getSeconds();
-//                 // $(nextBlock).appendTo('.columns__process');
-//                 this.process.push({     
-//                     id: planId,
-//                     desc: desc,
-//                     status: 'Process',
-//                     date: new Date()
-//                 });
-                    
-//             },
-//             next_process: function (e) {
-//                 var planId = $(e.target).closest('li').find('.indef').text();
-//                 var desc = $(e.target).closest('li').find('.columns__plan_desc').text()
-//                 var checkButton = $(e.target).closest('.columns__plan_icons').find('.fa-times-circle');
-//                 var finalDate = new Date();
-//                 this.finalDate = finalDate;
-//                 this.finalDateHours = finalDate.getHours();
-//                 this.finalDateMinutes = finalDate.getMinutes();
-//                 this.finalDateSeconds = finalDate.getSeconds();
-//                 console.log(planId);
-//                 this.process.pop ({
-//                     id: planId,
-//                 });
-//                 this.done.push({
-//                     id: planId,
-//                     desc: desc,
-//                     status: 'Process',
-//                     date: new Date(),
-//                     finalDate: new Date(),
-//                     dateDiff: (this.finalDateHours - this.dateHours) + ':' + (this.finalDateMinutes - this.dateMinutes) + ':' +  (this.finalDateSeconds - this.dateSeconds)
-//                 });
-//                 $(checkButton).removeClass('far fa-check-circle').addClass('fas fa-times-circle');
-//             },
-//             next_done: function (event) {
-//                 var planId = $(event.target).closest('li').find('.indef').text();
-//                 this.done.pop({
-//                     id: planId
-//                 });
-//             },
-//             drop: function(evt, list) {
-//                 console.log('DELETE id '+ evt.dataTransfer.getData('itemDELETE'))
-//                 if(evt.dataTransfer.getData('itemSTATUS') == 'columns__plan'){
-//                     var a = this.new_task.find(item => item.id == evt.dataTransfer.getData('itemDELETE'))
-//                     a.id = '';
-//                     this.countplans+=1;
-//                 }
-//                 if(evt.dataTransfer.getData('itemSTATUS') == 'columns__process'){
-//                     var a = this.process.find(item => item.id == evt.dataTransfer.getData('itemDELETE'))
-//                     a.id = '';
-//                     this.countwork+=1;
-//                 }
-//                 if(evt.dataTransfer.getData('itemSTATUS') == 'done'){
-//                     var a = this.done.find(item => item.id == evt.dataTransfer.getData('itemDELETE'))
-//                     a.id = '';
-//                     this.countstop+=1;
-//                 }
-//                 console.log("this.seconddesc "+ evt.dataTransfer.getData('itemDECS'))
-//                 if(list == 'plan'){
-//                     this.new_task.push({
-//                         id: evt.dataTransfer.getData('itemID'),
-//                         description: evt.dataTransfer.getData('itemDECS')
-//                     });
-//                 }
-//                 if(list == 'process'){
-//                     Data1 = new Date();
-//                     this.Hour1 = Data1.getHours();
-//                     this.Minutes1 = Data1.getMinutes();
-//                     this.Seconds1 = Data1.getSeconds();
-//                     this.process.push({
-//                         id: evt.dataTransfer.getData('itemID'),
-//                         description: evt.dataTransfer.getData('itemDECS'),
-//                         datestart: new Date(),
-//                         responsable: this.namevalue,
-//                     });
-//                 }
-//                 if(list == 'done'){
-//                     Data2 = new Date();
-//                     this.Hour2 = Data2.getHours();
-//                     this.Minutes2 = Data2.getMinutes();
-//                     this.Seconds2 = Data2.getSeconds();
-//                     if(evt.dataTransfer.getData('itemSTATUS') == 'plans'){
-//                         this.h = '00'
-//                         this.m = '00'
-//                         this.s = '00'
-//                     }else{
-//                         if((this.Hour2-this.Hour1) < 9){
-//                             this.h = '0'+(this.Hour2-this.Hour1)
-//                         }
-//                         if((this.Minutes2-this.Minutes1) < 9){
-//                             this.m = '0'+(this.Minutes2-this.Minutes1)
-//                         }
-//                         if((this.Seconds2-this.Seconds1) < 9){
-//                             this.s = '0'+(this.Seconds2-this.Seconds1)
-//                         }
-//                     }
-                    
-//                     this.done.push({
-//                         id: evt.dataTransfer.getData('itemID'),
-//                         description: evt.dataTransfer.getData('itemDECS'),
-//                         datestart: evt.dataTransfer.getData('itemDATE'),
-//                         responsable: this.namevalue,
-//                         dateend: new Date(),
-//                         during: this.h+':'+this.m+':'+this.s,
-//                     });
-//                 }
-//             },
-//             drag: function(event, item) {
-//                 const target = e.target;
-//                 evt.dataTransfer.dropEffect = 'move';
-//                 evt.dataTransfer.effectAllowed = 'move';
-//                 this.status = $(event.target).closest('.check').attr('class');
-//                 this.dragid = item.id;
-//                 this.dragstartdate = item.datestart;
-//                 this.dragdesc = item.description;
-//                 if(eventt.dataTransfer.getData('itemDATE') == ''){
-//                     event.dataTransfer.setData('itemDATE', new Date());
-//                 }
-//                 if(this.status == 'columns__plan proverka'){
-//                     event.dataTransfer.setData('itemID', item.id);
-//                     event.dataTransfer.setData('itemDECS', item.description);
-//                     event.dataTransfer.setData('itemDELETE', item.id);
-//                     event.dataTransfer.setData('itemSTATUS', 'plan');
-//                     //this.plans.splice(this.plans.indexOf(item.id), 1);
-                    
-//                 }
-//                 if(this.status == 'columns__process proverka'){
-//                     event.dataTransfer.setData('itemID', item.id);
-//                     event.dataTransfer.setData('itemDECS', item.description);
-//                     event.dataTransfer.setData('itemDATE', item.datestart);
-//                     // event.dataTransfer.setData('itemRESPONS', item.responsable);
-//                     event.dataTransfer.setData('itemDELETE', item.id);
-//                     event.dataTransfer.setData('itemSTATUS', 'process');
-//                 }
-//                 if(this.status == 'columns__done proverka'){
-//                     event.dataTransfer.setData('itemID', item.id);
-//                     event.dataTransfer.setData('itemDECS', item.description);
-//                     event.dataTransfer.setData('itemDATE', item.datestart);
-//                     event.dataTransfer.setData('itemDATEEND', item.dateend);
-//                     event.dataTransfer.setData('itemRESPONS', item.responsable);
-//                     event.dataTransfer.setData('itemDELETE', item.id);
-//                     event.dataTransfer.setData('itemSTATUS', 'done');
-//                 }
-//             },
-//         },
-// });
+            }
+            if(this.status == 'main__inwork check'){
+                evt.dataTransfer.setData('itemID', item.id);
+                evt.dataTransfer.setData('itemDECS', item.description);
+                evt.dataTransfer.setData('itemDATE', item.datestart);
+                evt.dataTransfer.setData('itemRESPONS', item.responsable);
+                evt.dataTransfer.setData('itemDELETE', item.id);
+                evt.dataTransfer.setData('itemSTATUS', 'inwork');
+            }
+            if(this.status == 'main__stoped check'){
+                evt.dataTransfer.setData('itemID', item.id);
+                evt.dataTransfer.setData('itemDECS', item.description);
+                evt.dataTransfer.setData('itemDATE', item.datestart);
+                evt.dataTransfer.setData('itemDATEEND', item.dateend);
+                evt.dataTransfer.setData('itemRESPONS', item.responsable);
+                evt.dataTransfer.setData('itemDELETE', item.id);
+                evt.dataTransfer.setData('itemSTATUS', 'completed');
+            }
+        },
+        onDrop(evt, list) {
+            console.log('DELETE id '+ evt.dataTransfer.getData('itemDELETE'))
+            if(evt.dataTransfer.getData('itemSTATUS') == 'plans'){
+                var a = this.plans.find(item => item.id == evt.dataTransfer.getData('itemDELETE'))
+                a.id = '';
+                this.countplans+=1;
+            }
+            if(evt.dataTransfer.getData('itemSTATUS') == 'inwork'){
+                var a = this.inwork.find(item => item.id == evt.dataTransfer.getData('itemDELETE'))
+                a.id = '';
+                this.countwork+=1;
+            }
+            if(evt.dataTransfer.getData('itemSTATUS') == 'completed'){
+                var a = this.completed.find(item => item.id == evt.dataTransfer.getData('itemDELETE'))
+                a.id = '';
+                this.countstop+=1;
+            }
+            console.log("tjis.seconddesc "+ evt.dataTransfer.getData('itemDECS'))
+            if(list == 'plans'){
+                this.plans.push({
+                    id: evt.dataTransfer.getData('itemID'),
+                    description: evt.dataTransfer.getData('itemDECS')
+                });
+            }
+            if(list == 'inwork'){
+                Data1 = new Date();
+                this.Hour1 = Data1.getHours();
+                this.Minutes1 = Data1.getMinutes();
+                this.Seconds1 = Data1.getSeconds();
+                this.inwork.push({
+                    id: evt.dataTransfer.getData('itemID'),
+                    description: evt.dataTransfer.getData('itemDECS'),
+                    datestart: new Date(),
+                    responsable: this.namevalue,
+                });
+            }
+            if(list == 'completed'){
+                Data2 = new Date();
+                this.Hour2 = Data2.getHours();
+                this.Minutes2 = Data2.getMinutes();
+                this.Seconds2 = Data2.getSeconds();
+                if(evt.dataTransfer.getData('itemSTATUS') == 'plans'){
+                    this.h = '00'
+                    this.m = '00'
+                    this.s = '00'
+                }else{
+                    if((this.Hour2-this.Hour1) < 9){
+                        this.h = '0'+(this.Hour2-this.Hour1)
+                    }
+                    if((this.Minutes2-this.Minutes1) < 9){
+                        this.m = '0'+(this.Minutes2-this.Minutes1)
+                    }
+                    if((this.Seconds2-this.Seconds1) < 9){
+                        this.s = '0'+(this.Seconds2-this.Seconds1)
+                    }
+                }
+                
+                this.completed.push({
+                    id: evt.dataTransfer.getData('itemID'),
+                    description: evt.dataTransfer.getData('itemDECS'),
+                    datestart: evt.dataTransfer.getData('itemDATE'),
+                    responsable: this.namevalue,
+                    dateend: new Date(),
+                    during: this.h+':'+this.m+':'+this.s,
+                });
+            }
+		},
+        next1: function(e){
+            var numberTask = $(e.target).closest('li').find('.number').text()
+            var description = $(e.target).closest('li').find('.desc').text()
+            this.plans.pop({
+                id: numberTask,
+            });
+            Data1 = new Date();
+            this.Hour1 = Data1.getHours();
+            this.Minutes1 = Data1.getMinutes();
+            this.Seconds1 = Data1.getSeconds();
+            this.inwork.push({
+                id: numberTask,
+                description: description,
+                datestart: new Date(),
+                responsable: this.namevalue,
+            })
+        },
+        next2: function(e){
+            var numberTask = $(e.target).closest('li').find('.number').text()
+            var description = $(e.target).closest('li').find('.desc').text()
+            var datestart = $(e.target).closest('li').find('.date').text()
+            this.inwork.pop({
+                id: numberTask,
+            });
+            Data2 = new Date();
+            this.Hour2 = Data2.getHours();
+            this.Minutes2 = Data2.getMinutes();
+            this.Seconds2 = Data2.getSeconds();
+            //var h;
+            if((this.Hour2-this.Hour1) < 9){
+                this.h = '0'+(this.Hour2-this.Hour1)
+            }
+            var m;
+            if((this.Minutes2-this.Minutes1) < 9){
+                this.m = '0'+(this.Minutes2-this.Minutes1)
+            }
+            var s;
+            if((this.Seconds2-this.Seconds1) < 9){
+                this.s = '0'+(this.Seconds2-this.Seconds1)
+            }
+            this.completed.push({
+                id: numberTask,
+                description: description,
+                datestart: datestart,
+                dateend: new Date(),
+                responsable: this.namevalue,
+                during: this.h+':'+this.m+':'+this.s,
+            })
+        },
+        del: function(e){
+            var numberTask = $(e.target).closest('li').find('.number').text()
+            this.completed.pop({
+                id: numberTask,
+            });
+        },
+        edit: function(e){
+            console.log($(e.target).closest('.check').attr('class'))
+            if( $(e.target).closest('.check').attr('class') == "main__plans check" ){
+                $('.editplans').css({
+                    'display': 'block',
+                })
+                var desc = $(e.target).closest('li').find('.desc').text()
+                $('#description1').val(desc)
+                $('select option[value="1"]').prop('selected', true);
+                console.log('edit1')
+            }
+            if( $(e.target).closest('.check').attr('class') == "main__inwork check" ){
+                $('.editinwork').css({
+                    'display': 'block',
+                })
+                var desc = $(e.target).closest('li').find('.desc').text()
+                var date = $(e.target).closest('li').find('.date').text()
+                var respons = $(e.target).closest('li').find('.respons').text()
+                $('#description2').val(desc)
+                $('#date2').val(date)
+                $('#respons2').val(respons)
+                $('select option[value="2"]').prop('selected', true);
+                console.log('edit2')
+            }
+            if( $(e.target).closest('.check').attr('class') == "main__stoped check" ){
+                $('.editstoped').css({
+                    'display': 'block',
+                })
+                var desc = $(e.target).closest('li').find('.desc').text()
+                var date = $(e.target).closest('li').find('.date').text()
+                var respons = $(e.target).closest('li').find('.respons').text()
+                var dateend = $(e.target).closest('li').find('.dateend').text()
+                $('#description3').val(desc)
+                $('#date3').val(date)
+                $('#respons3').val(respons)
+                $('#dateend3').val(dateend)
+                //select
+                $('select option[value="3"]').prop('selected', true);
+                console.log('edit3')
+            }
+            this.whois = $(e.target)
+        },
+        close: function(){
+            $('.editinwork, .editstoped, .editplans').css({
+                'display': 'none',
+            })
+        },
+        savechanges: function(e){
+            if($(e.target).closest('.check2').attr('class') == 'editplans check2'){
+                var descChanges = $('#description1').val()
+                var selectChanges = $( "#select1 option:selected" ).text();
+                this.whois.closest('li').find('.desc').text(descChanges)
+                //select
+                if(selectChanges == 'В работе'){
+                    var numberTask = this.whois.closest('li').find('.number').text()
+                    var description = this.whois.closest('li').find('.desc').text()
+                    this.plans.pop({
+                        id: numberTask,
+                    });
+                    this.inwork.push({
+                        id: numberTask,
+                        description: description,
+                        datestart: new Date(),
+                        responsable: this.namevalue,
+                    })
+                }
+                if(selectChanges == 'Готово'){
+                    var numberTask = this.whois.closest('li').find('.number').text()
+                    var description = this.whois.closest('li').find('.desc').text()
+                    var datestart = this.whois.closest('li').find('.date').text()
+                    this.plans.pop({
+                        id: numberTask,
+                    });
+                    Data2 = new Date();
+                    this.Hour2 = Data2.getHours();
+                    this.Minutes2 = Data2.getMinutes();
+                    this.Seconds2 = Data2.getSeconds();
+                    //var h;
+                    if((this.Hour2-this.Hour1) < 9){
+                        this.h = '0'+(this.Hour2-this.Hour1)
+                    }
+                    var m;
+                    if((this.Minutes2-this.Minutes1) < 9){
+                        this.m = '0'+(this.Minutes2-this.Minutes1)
+                    }
+                    var s;
+                    if((this.Seconds2-this.Seconds1) < 9){
+                        this.s = '0'+(this.Seconds2-this.Seconds1)
+                    }
+                    this.completed.push({
+                        id: numberTask,
+                        description: description,
+                        datestart: new Date(),
+                        dateend: new Date(),
+                        responsable: this.namevalue,
+                        during: this.h+':'+this.m+':'+this.s,
+                    })
+                }
+                //закрытие
+                this.close()
+            }
+            if($(e.target).closest('.check2').attr('class')=='editinwork check2'){
+                var descChanges = $('#description2').val()
+                var selectChanges = $( "#select2 option:selected" ).text();
+                var dateChanges = $('#date2').val()
+                var responsChanges = $('#respons2').val()
+                this.whois.closest('li').find('.desc').text(descChanges)
+                this.whois.closest('li').find('.date').text(dateChanges)
+                this.whois.closest('li').find('.respons').text(responsChanges)
+                //select
+                if(selectChanges == 'План'){
+                    var numberTask = this.whois.closest('li').find('.number').text()
+                    var description = this.whois.closest('li').find('.desc').text()
+                    this.inwork.pop({
+                        id: numberTask,
+                    });
+                    this.plans.push({
+                        id: numberTask,
+                        description: description,
+                    })
+                }
+                if(selectChanges == 'Готово'){
+                    var numberTask = this.whois.closest('li').find('.number').text()
+                    var description = this.whois.closest('li').find('.desc').text()
+                    var datestart = this.whois.closest('li').find('.date').text()
+                    var respons = this.whois.closest('li').find('.respons').text()
+                    this.inwork.pop({
+                        id: numberTask,
+                    });
+                    Data2 = new Date();
+                    this.Hour2 = Data2.getHours();
+                    this.Minutes2 = Data2.getMinutes();
+                    this.Seconds2 = Data2.getSeconds();
+                    //var h;
+                    if((this.Hour2-this.Hour1) < 9){
+                        this.h = '0'+(this.Hour2-this.Hour1)
+                    }
+                    var m;
+                    if((this.Minutes2-this.Minutes1) < 9){
+                        this.m = '0'+(this.Minutes2-this.Minutes1)
+                    }
+                    var s;
+                    if((this.Seconds2-this.Seconds1) < 9){
+                        this.s = '0'+(this.Seconds2-this.Seconds1)
+                    }
+                    this.completed.push({
+                        id: numberTask,
+                        description: description,
+                        datestart: datestart,
+                        dateend: new Date(),
+                        responsable: respons,
+                        during: this.h+':'+this.m+':'+this.s,
+                    })
+                }
+                //закрытие
+                this.close()
+            }
+            if($(e.target).closest('.check2').attr('class')=='editstoped check2'){
+                var descChanges = $('#description3').val()
+                var selectChanges = $( "#select3 option:selected" ).text();
+                var dateChanges = $('#date3').val()
+                var responsChanges = $('#respons3').val()
+                var dateendChanges = $('#dateend3').val()
+                this.whois.closest('li').find('.desc').text(descChanges)
+                this.whois.closest('li').find('.date').text(dateChanges)
+                this.whois.closest('li').find('.respons').text(responsChanges)
+                this.whois.closest('li').find('.dateend').text(dateendChanges)
+                //select
+                if(selectChanges == 'План'){
+                    var numberTask = this.whois.closest('li').find('.number').text()
+                    var description = this.whois.closest('li').find('.desc').text()
+                    this.completed.pop({
+                        id: numberTask,
+                    });
+                    this.plans.push({
+                        id: numberTask,
+                        description: description,
+                    })
+                }
+                if(selectChanges == 'В работе'){
+                    var numberTask = this.whois.closest('li').find('.number').text()
+                    var description = this.whois.closest('li').find('.desc').text()
+                    var respons = this.whois.closest('li').find('.respons').text()
+                    var datestart = this.whois.closest('li').find('.date').text()
+                    this.completed.pop({
+                        id: numberTask,
+                    });
+                    this.inwork.push({
+                        id: numberTask,
+                        description: description,
+                        datestart: datestart,
+                        responsable: respons,
+                    })
+                }
+                //закрытие
+                this.close()
+            }
+        }
+    }
+})
+
+var flag = false;
+$( ".box" ).click(function() {
+    if(flag == false){
+        flag = true;
+    $('.darktext').text('Светлая тема')
+    $('.edit').removeAttr('src');
+    $('.edit').attr('src','img/editdark.png');
+    $('.next').removeAttr('src');
+    $('.next').attr('src','img/nextdark.png');
+    $('.move').removeAttr('src');
+    $('.move').attr('src','img/movedark.png');
+    $('.delete').removeAttr('src');
+    $('.delete').attr('src','img/deletedark.png');
+    $( ".circle" ).removeClass('circle').addClass('circledark')
+    $( ".box" ).css({
+        'background-color' : '#dcdcdc',
+        'border': '3px solid #dcdcdc',
+    })
+    $( "body" ).css({
+        'background-color': 'rgba(0, 0, 0, 0.88)',
+        'transition': 'all .8s',
+        'font-family': 'Exo 2, sans-serif'
+
+    })
+    $( "h1" ).css({
+        'color': 'rgba(255, 255, 255)'
+    })
+    $( "h2" ).css({
+        'color': 'rgba(255, 255, 255)',
+    })
+    $( ".darktext" ).css({
+        'color': 'rgba(255, 255, 255, 0.8)'
+    })
+    $( ".main__plans, .main__inwork , .main__stoped" ).css({
+        'border': '2px solid rgba(255, 255, 255, 0.5)',
+        'padding': '0.7rem',
+        'color': 'rgba(255, 255, 255, 0.9)',
+        'background-color': 'rgba(255, 255, 255, 0.05)'
+    })
+    $( ".p" ).css({
+        'color': 'rgba(255, 255, 255, 0.9)'
+    })
+    $( ".plans" ).removeClass('plans').addClass('plansdark')
+    $( ".editplansinner" ).removeClass('editplansinner').addClass('editplansinnerdark')
+    $( ".editworkinner" ).removeClass('editworkinner').addClass('editworkinnerdark')
+    $( ".editstopedinner" ).removeClass('editstopedinner').addClass('editstopedinnerdark')
+    $('.innerclose').removeAttr('src');
+    $('.innerclose').attr('src','img/closedark.png');
+    $( ".description" ).removeClass('description').addClass('descriptiondark')
+    $('.addimg').removeAttr('src');
+    $('.addimg').attr('src','img/addthemeblack.png');
+}else{
+    flag = false;
+    $('.delete').removeAttr('src');
+    $('.delete').attr('src','img/delete.png');
+    $('#close').removeAttr('src');
+    $('#close').attr('src','img/close.png');
+    $( ".editplansinnerdark" ).removeClass('editplansinnerdark').addClass('editplansinner')
+    $( ".editworkinnerdark" ).removeClass('editworkinnerdark').addClass('editworkinner')
+    $( ".editstopedinnerdark" ).removeClass('editstopedinnerdark').addClass('editstopedinner')
+    $( ".strelkadark" ).removeClass('strelkadark').addClass('strelka')
+    $('.innerclose').removeAttr('src');
+    $('.innerclose').attr('src','img/close.png');
+    $('.edit').removeAttr('src');
+    $('.edit').attr('src','img/edit.png');
+    $('.next').removeAttr('src');
+    $('.next').attr('src','img/next.png');
+    $('.move').removeAttr('src');
+    $('.move').attr('src','img/move.png');
+    $( ".circledark" ).removeClass('circledark').addClass('circle')
+    $( ".box" ).css({
+        'background-color': '#3498DB',
+        'border': '3px solid #3498DB',
+    })
+    $('.darktext').text('Темная тема')
+    $( "body" ).css({
+        'background-color': '#f3c8d8',
+        'transition': 'all .8',
+        'font-family': 'Exo 2, sans-serif'
+
+
+    })
+    $( "h1" ).css({
+        'color': 'rgba(0, 0, 0)'
+    })
+    $( "h2" ).css({
+        'color': 'rgba(0, 0, 0)',
+    })
+    $( ".darktext" ).css({
+        'color': 'rgba(0, 0, 0, 0.3)'
+    })
+    $( ".main__plans, .main__inwork , .main__stoped" ).css({
+        'border': '2px solid #3498db6b',
+        'padding': '0.7rem',
+        'color': '#3498DB',
+        'background-color': 'rgba(52, 152, 219, 0.05)'
+    })
+    $( ".p" ).css({
+        'color': '#3498DB'
+    })
+    $( ".plansdark" ).removeClass('plansdark').addClass('plans')
+    $( ".descriptiondark" ).removeClass('descriptiondark').addClass('description')
+    $('.addimg').removeAttr('src');
+    $('.addimg').attr('src','img/add.png');
+}
+  });
+
+  var mutationObserver = new MutationObserver(function(mutations) {
+    mutations.forEach(function(mutation) {
+        if( ($(mutation.target).attr('id') == 'ol') && (flag) ){
+            $( ".plans" ).removeClass('plans').addClass('plansdark')
+            $('.darktext').text('Светлая тема')
+            $('.edit').removeAttr('src');
+            $('.edit').attr('src','img/editdark.png');
+            $('.next').removeAttr('src');
+            $('.next').attr('src','img/nextdark.png');
+            $( ".p" ).css({
+                'color': 'rgba(255, 255, 255, 0.9)'
+            })
+            $('.move').removeAttr('src');
+            $('.move').attr('src','img/movedark.png');
+            $('.delete').removeAttr('src');
+            $('.delete').attr('src','img/deletedark.png');
+           
+            
+        }
+        if( (($(mutation.target).attr('class') == 'editplans check2') && (flag))  ||  (($(mutation.target).attr('class') == 'editinwork check2') && (flag))   ||  (($(mutation.target).attr('class') == 'editstoped check2') && (flag))  ){
+            $( ".editplansinner" ).removeClass('editplansinner').addClass('editplansinnerdark')
+            $( ".editworkinner" ).removeClass('editworkinner').addClass('editworkinnerdark')
+            $( ".editstopedinner" ).removeClass('editstopedinner').addClass('editstopedinnerdark')
+            $( ".strelka" ).removeClass('strelka').addClass('strelkadark')
+            $('.innerclose').removeAttr('src');
+            $('.innerclose').attr('src','img/closedark.png');
+        }
+    }); 
+  });
+  mutationObserver.observe(document.documentElement, {
+    attributes: true,
+    characterData: true,
+    childList: true,
+    subtree: true,
+    attributeOldValue: true,
+    characterDataOldValue: true
+  });
+
+
+
